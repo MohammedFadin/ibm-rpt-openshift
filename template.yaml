@@ -14,11 +14,20 @@ objects:
         name: rpt-agent
         type: stress-tester
         tier: devops
+        ucd-pipeline: ${BUILD_NAME}
     spec:
       containers:
         - image: docker-registry.default.svc:5000/devops/ibm-rpta:10.0.0
-            env:
-              - name: MASTER_NAME
-                value: 10.11.12.21 #RPT WorkbenchIP
+          env:
+            - name: MASTER_NAME
+              value: 10.11.12.21 #RPT WorkbenchIP
+            - name: AGENT_NAME
+              value: agent
+            - name: AGENT_IP
+              value: 11.22.33.11 #ClusterIPAddress
           imagePullPolicy: Always
           name: agent
+parameters:
+  - name: BUILD_NAME
+    required: true
+    value: ""
