@@ -1,0 +1,33 @@
+###
+######### Rational Performance Tester Agent Pod Template Deployment on Openshift
+###
+apiVersion: v1
+kind: Template
+metadata:
+  name: ibm-rpt-agent
+objects:
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      generateName: ibm-rpt-agent-
+      labels:
+        name: rpt-agent
+        type: stress-tester
+        tier: devops
+        ucd-pipeline: ${BUILD_NAME}
+    spec:
+      containers:
+          imagePullPolicy: Always
+          name: agent
+        - image: docker-registry.default.svc:5000/devops/ibm-rpta:10.0.0
+          env:
+          - name: AGENT_NAME
+            value: agent1
+          - name: AGENT_IP
+            value: 11.22.33.11 #ClusterIPAddress
+          - name: MASTER_NAME
+            value: 10.11.12.21 #RPT WorkbenchIP
+parameters:
+  - name: BUILD_NAME
+    required: true
+    value: ""
