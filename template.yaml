@@ -17,8 +17,8 @@ objects:
         ucd-pipeline: ${BUILD_NAME}
     spec:
       containers:
-          imagePullPolicy: Always
-          name: agent
+        imagePullPolicy: Always
+        name: agent
         - image: docker-registry.default.svc:5000/devops/ibm-rpta:10.0.0
           env:
           - name: AGENT_NAME
