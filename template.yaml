@@ -1,5 +1,5 @@
 ###
-######### Rational Performance Tester Agent Pod Template Deployment on Openshift
+######### RPTA Pod within Openshift Platform
 ###
 apiVersion: v1
 kind: Template
@@ -18,15 +18,11 @@ objects:
     spec:
       containers:
         - image: docker-registry.default.svc:5000/devops/ibm-rpta:10.0.0
+            env:
+              - name: MASTER_NAME
+                value: 10.11.12.21 #RPT WorkbenchIP
           imagePullPolicy: Always
           name: agent
-            env:
-            - name: AGENT_NAME
-              value: agent1
-            - name: AGENT_IP
-              value: 11.22.33.11 #ClusterIPAddress
-            - name: MASTER_NAME
-              value: 10.11.12.21 #RPT WorkbenchIP
 parameters:
   - name: BUILD_NAME
     required: true
